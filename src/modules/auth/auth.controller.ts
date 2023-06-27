@@ -3,8 +3,10 @@ import { AuthService } from './auth.service';
 
 import { SignupDto } from './dto/signup.dto';
 import { SigninDto } from './dto/signin';
+import { IsPublic } from 'src/shared/decorators/isPublic';
 
 @Controller('auth')
+@IsPublic()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
