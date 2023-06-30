@@ -3,12 +3,36 @@ import { type Prisma } from '@prisma/client';
 
 import { PrismaService } from '../prisma.service';
 
+interface FindManyResponse {
+  id: string;
+  userId: string;
+  name: string;
+  initialBalance: number;
+  type: string;
+  color: string;
+  transactions: [
+    {
+      type: string;
+      value: number;
+    },
+    {
+      type: string;
+      value: number;
+    },
+  ];
+  currentBalance: number;
+}
+
 @Injectable()
 export class BankAccountsRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  findMany(findManyArgs: Prisma.BankAccountFindManyArgs) {
-    return this.prismaService.bankAccount.findMany(findManyArgs);
+  findMany<T extends Prisma.BankAccountFindManyArgs>(
+    findManyDto: Prisma.SelectSubset<T, Prisma.BankAccountFindManyArgs>,
+  ) {
+    return this.prismaService.bankAccount.findMany(
+      findManyDto,
+    ) as unknown as FindManyResponse[];
   }
 
   findFirst(findFirstArgs: Prisma.BankAccountFindFirstArgs) {
