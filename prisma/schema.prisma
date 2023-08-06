@@ -71,7 +71,7 @@ model Transaction {
   bankAccountId String   @map("bank_account_id") @db.Uuid
   categoryId    String?  @map("category_id") @db.Uuid
   name          String
-  value         Int
+  value         Float
   date          DateTime
   type          String
 
